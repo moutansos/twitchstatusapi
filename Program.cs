@@ -11,7 +11,7 @@ IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 
 string clientId = Environment.GetEnvironmentVariable("TWITCH_CLIENT_ID") ?? throw new Exception("TWITCH_CLIENT_ID not set");
 string clientSecret = Environment.GetEnvironmentVariable("TWITCH_CLIENT_SECRET") ?? throw new Exception("TWITCH_CLIENT_SECRET not set");
-ASPNETCORE_ENVIRONMENT
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
