@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitchstatusapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: twitchstatusapi
+  template:
+    metadata:
+      labels:
+        app: twitchstatusapi
+    spec:
+      containers:
+        - name: twitchstatusapi
+          image: ghcr.io/moutansos/twitchstatusapi:${buildid}
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: TWITCH_CLIENT_ID
+              value: ${TWITCH_CLIENT_ID}
+            - name: TWITCH_CLIENT_SECRET
+              value: ${TWITCH_CLIENT_SECRET}
+      imagePullSecrets:
+        - name: ghcr-secret
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twitchstatusapi
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: twitchstatusapi
+  type: ClusterIP

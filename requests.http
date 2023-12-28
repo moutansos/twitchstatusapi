@@ -1,0 +1,6 @@
+### Hello World
+GET http://localhost:5002/api/status
+
+### Get twitch stream status
+GET http://localhost:5002/api/channels?id=45025143
+
